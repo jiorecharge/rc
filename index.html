@@ -22,20 +22,20 @@
     main {padding: 2rem; max-width: 1100px; margin: auto;}
     h2 {color: #0a5cd8; margin-bottom: 1.2em;}
     .plans-grid {display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem;}
-    .plan-card {background: #fff; border: 1px solid #b3d2f8; border-radius: 12px; box-shadow: 0 2px 6px rgba(10,92,216,0.07); display: flex; flex-direction: column; align-items: center; padding: 0.7em 0.5em; min-height: 170px; max-width: 100%; transition: box-shadow 0.2s, transform 0.2s; position: relative;}
+    .plan-card {background: #fff; border: 1px solid #b3d2f8; border-radius: 12px; box-shadow: 0 2px 6px rgba(10,92,216,0.07); display: flex; flex-direction: column; align-items: center; padding: 0.7em;}
     .plan-card:hover {box-shadow: 0 4px 20px rgba(10,92,216,0.18); transform: translateY(-2px) scale(1.03);}
     .plan-icon {font-size: 1.6em; color: #0a5cd8; margin-bottom: 0.5em;}
     .plan-price {font-size: 1.1em; font-weight: bold; color: #222; margin-bottom: 0.2em;}
     .plan-old-price {font-size: 0.95em; color: #888; text-decoration: line-through; margin-left: 0.5em; font-weight: normal;}
     .plan-validity {font-size: 0.9em; color: #666; margin-bottom: 0.2em;}
     .plan-desc {font-size: 0.93em; text-align: center; margin-bottom: 0.4em; min-height: 36px;}
-    .plan-btn {background: #0a5cd8; color: #fff; border: none; border-radius: 8px; padding: 0.3em 0.5em; font-size: 0.95em; cursor: pointer; margin-top: auto; text-decoration: none; transition: background 0.2s; width: 90px; text-align: center;}
+    .plan-btn {background: #0a5cd8; color: #fff; border: none; border-radius: 8px; padding: 0.3em 0.5em; font-size: 0.95em; cursor: pointer; margin-top: auto; text-decoration: none; transition: background 0.2s;}
     .plan-btn:hover {background: #144aa8;}
     .badge {background: #cfe3fc; color: #0a5cd8; font-weight: bold; padding: 0.2em 0.6em; border-radius: 6px; font-size: 0.85em; position: absolute; top: 8px; right: 12px; z-index: 2;}
     /* Modal styles */
     .modal-bg {display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(10,92,216,0.15); z-index: 9999; justify-content: center; align-items: center;}
     .modal-bg.active {display: flex;}
-    .modal {background: #fff; padding: 2em 1.3em 1.1em 1.3em; border-radius: 18px; box-shadow: 0 4px 30px rgba(10,92,216,0.17); max-width: 330px; width: 95vw; text-align: center; position: relative; animation: fadeIn 0.4s;}
+    .modal {background: #fff; padding: 2em 1.3em 1.1em 1.3em; border-radius: 18px; box-shadow: 0 4px 30px rgba(10,92,216,0.17); max-width: 330px; width: 95vw; text-align: center; position: relative; animation: fadeIn 0.27s;}
     @keyframes fadeIn {from { opacity: 0; transform: scale(0.95);} to { opacity: 1; transform: scale(1);}}
     .modal-step {display: none;}
     .modal-step.active {display: block;}
@@ -44,10 +44,12 @@
     .modal-countdown {font-size: 1.1em; color: #0a5cd8; font-weight: bold; margin-bottom: 0.5em;}
     .modal-warning {font-size: 1em; color: #c00; font-weight: bold; margin-bottom: 0.7em;}
     .modal-name {font-size: 1em; margin-bottom: 0.5em; color: #222; font-weight: 500;}
-    .close-modal {position: absolute; top: 15px; right: 15px; background: #e3f1ff; color: #0a5cd8; border: none; border-radius: 50%; font-size: 1.1em; width: 2em; height: 2em; cursor: pointer; line-height: 2em; font-weight: bold; box-shadow: 0 1px 4px rgba(10,92,216,0.09);}
+    .close-modal {position: absolute; top: 15px; right: 15px; background: #e3f1ff; color: #0a5cd8; border: none; border-radius: 50%; font-size: 1.1em; width: 2em; height: 2em; cursor: pointer; line-height: 2em;}
     .close-modal:hover {background: #cfe3fc;}
-    .next-step-btn {background: #0a5cd8; color: #fff; border: none; border-radius: 8px; padding: 0.5em 1.3em; font-size: 1em; cursor: pointer; margin-top: 1em; text-decoration: none; transition: background 0.2s;}
-    .next-step-btn:hover {background: #144aa8;}
+    .next-step-btn, .number-submit-btn {background: #0a5cd8; color: #fff; border: none; border-radius: 8px; padding: 0.5em 1.3em; font-size: 1em; cursor: pointer; margin-top: 1em; text-decoration: none; transition: background 0.2s;}
+    .next-step-btn:hover, .number-submit-btn:hover {background: #144aa8;}
+    .number-input {padding: 0.5em; font-size: 1em; border: 1px solid #b3d2f8; border-radius: 6px; margin-bottom: 0.7em; width: 85%;}
+    .input-error {color: #c00; margin-top: 0.3em; font-size: 0.93em; min-height: 1.2em;}
     /* Engaging elements */
     .like-area {text-align:center;margin-bottom:1.2em;}
     .like-btn {background:#cfe3fc;color:#0a5cd8;font-size:1.1em;border:none;border-radius:8px;padding:0.5em 1.2em;cursor:pointer;}
@@ -193,6 +195,13 @@
   <div class="modal-bg" id="qrModal">
     <div class="modal">
       <button class="close-modal" onclick="closeModal()">&times;</button>
+      <!-- Step 0: Enter Mobile Number -->
+      <div class="modal-step" id="modalStep0">
+        <div class="modal-title">Enter Your Jio Number</div>
+        <input type="tel" class="number-input" id="jioNumber" maxlength="10" placeholder="Enter 10-digit number" pattern="[0-9]{10}" />
+        <div class="input-error" id="numberError"></div>
+        <button class="number-submit-btn" onclick="verifyNumber()">Verify & Continue</button>
+      </div>
       <!-- Step 1: Payment Secure Screen -->
       <div class="modal-step" id="modalStep1">
         <div class="modal-title">Payment Secure Screen</div>
@@ -254,23 +263,51 @@
 
     // Modal payment logic
     let countdownInterval;
+
+    // Modified modal logic for number verification
     function openModal() {
       document.getElementById('qrModal').classList.add('active');
-      showStep1();
+      showStep0();
     }
     function closeModal() {
       document.getElementById('qrModal').classList.remove('active');
       clearInterval(countdownInterval);
       document.getElementById('countdown').textContent = "05:00";
+      document.getElementById('jioNumber').value = "";
+      document.getElementById('numberError').textContent = "";
+      hideAllModalSteps();
+    }
+    function hideAllModalSteps() {
+      document.getElementById('modalStep0').classList.remove('active');
+      document.getElementById('modalStep1').classList.remove('active');
+      document.getElementById('modalStep2').classList.remove('active');
+    }
+    function showStep0() {
+      hideAllModalSteps();
+      document.getElementById('modalStep0').classList.add('active');
+      clearInterval(countdownInterval);
+      document.getElementById('countdown').textContent = "05:00";
+    }
+    function verifyNumber() {
+      var number = document.getElementById('jioNumber').value.trim();
+      var errorBox = document.getElementById('numberError');
+      // Allow only 10 digits, numeric, not starting with 0, simple check for Indian numbers
+      if (!/^[6-9]\d{9}$/.test(number)) {
+        errorBox.textContent = "Please enter a valid 10-digit Jio number.";
+        return false;
+      }
+      errorBox.textContent = "";
+      showStep1();
+      return true;
     }
     function showStep1() {
+      hideAllModalSteps();
       document.getElementById('modalStep1').classList.add('active');
-      document.getElementById('modalStep2').classList.remove('active');
       clearInterval(countdownInterval);
       document.getElementById('countdown').textContent = "05:00";
     }
     function showStep2() {
-      document.getElementById('modalStep1').classList.remove('active');
+      hideAllModalSteps();
       document.getElementById('modalStep2').classList.add('active');
       startCountdown(5 * 60); // 5 minutes
     }
